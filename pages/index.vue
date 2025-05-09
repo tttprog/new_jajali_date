@@ -37,7 +37,7 @@
           class="flex flex-col gap-5 p-5 bg-[url(images/azan.png)] bg-no-repeat bg-cover rounded-4xl shadow items-start">
           <span class="text-center font-bold bg-blue-500 rounded-4xl p-2 text-white">اذان به افق شهر تهران</span>
           <div class="w-full grid grid-cols-3 justify-items-center">
-            <div class="px-10 py-2 flex flex-col items-center justify-around rounded-4xl bg-sky-200 shadow shadow">
+            <div class="px-10 py-2 flex flex-col items-center justify-around rounded-4xl bg-sky-200 shadow">
               <Icon name="solar:sunrise-bold" size="50" />
               <span class="text-2xl">اذان صبح</span>
               <span class="text-xl">03:45</span>
