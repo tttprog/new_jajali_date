@@ -8,18 +8,18 @@
       <div v-if="error" class="text-[#ef4444]">خطا در دریافت اطلاعات</div>
       <!-- start -->
       <div
-        class="w-[800px] h-[1000px] border border-[#f3f4f6] bg-cover rounded-4xl p-5 flex-col justify-between shadow-xl relative hidden lg:flex"
+        class="w-[800px] h-[1000px] border border-[#f3f4f6] bg-[#ffffff] p-5 flex-col gap-5 justify-between shadow-xl relative hidden lg:flex"
         id="canva">
         <div
           class="z-10 w-full h-full bg-[#e5e7eb] absolute opacity-90 rounded-4xl left-0 top-0 flex items-center justify-center"
           v-if="loading">
           <div class="flex items-center gap-3">
-            <Icon name="svg-spinners:90-ring-with-bg" size="30" />
+            <Icon name="png-spinners:90-ring-with-bg" size="30" />
             <span>درحال دریافت اطلاعات</span>
           </div>
         </div>
         <!-- start -->
-        <div class="bg-[url(images/date.svg)] bg-no-repeat bg-cover rounded-4xl shadow">
+        <div class="bg-[url(images/date.png)] bg-no-repeat bg-cover rounded-4xl shadow">
           <div class="w-full grid grid-cols-3 justify-items-center rounded-4xl p-5">
             <div class="px-10 py-2 flex flex-col items-center rounded-4xl bg-[#030712] text-[#ffffff]">
               <span class="text-5xl">{{ day }}</span>
@@ -41,7 +41,7 @@
         <!-- end -->
 
         <!-- start -->
-        <div class="bg-[url(images/azan.svg)] bg-no-repeat bg-cover rounded-4xl">
+        <div class="bg-[url(images/azan.png)] bg-no-repeat bg-cover rounded-4xl">
           <div class="flex flex-col gap-5 shadow items-start p-5 rounded-4xl">
             <span class="text-center font-bold bg-[#3b82f6] rounded-4xl p-2 text-[#ffffff] self-center">اذان به افق شهر
               تهران</span>
@@ -76,8 +76,9 @@
         </div>
         <!-- end -->
         <!-- start -->
-        <div class="w-full flex justify-center p-5 bg-[url(images/events.svg)] rounded-4xl shadow relative">
-          <span class="bg-[#3b82f6] text-xl p-2 rounded-t-none w-96 text-center rounded-4xl text-[#ffffff] absolute top-0">
+        <div class="w-full flex justify-center p-5 bg-[url(images/events.png)] rounded-4xl shadow relative">
+          <span
+            class="bg-[#3b82f6] text-xl p-2 rounded-t-none w-96 text-center rounded-4xl text-[#ffffff] absolute top-0">
             رویداد ها
           </span>
           <span class="mt-10 font-bold text-[#ffffff] text-2xl text-wrap line-clamp-3" v-if="events">{{ events }}</span>
@@ -86,7 +87,7 @@
         </div>
         <!-- end -->
         <!-- start -->
-        <div class="w-full flex justify-around gap-5 p-5 bg-[url(images/info.svg)] rounded-4xl shadow">
+        <div class="w-full flex justify-around gap-5 p-5 bg-[url(images/info.png)] rounded-4xl shadow">
           <div>
             <img src="/images/logo.jpg" alt="LOGO" class="w-[300px] rounded-4xl">
           </div>
@@ -192,6 +193,9 @@ async function convertHTMLtoImage(elementId: string) {
     const dataUrl = await htmlToImage.toPng(element, {
       width: 800,
       height: 1000,
+      style: {
+        display: 'flex'
+      }
     });
     return dataUrl;
   } catch (error) {
