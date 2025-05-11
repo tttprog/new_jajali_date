@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ query }}
     <UContainer class="mt-10 flex flex-col gap-10 items-center">
       <div class="p-5 bg-gray-300 flex flex-col gap-3 justify-center">
         <p>انتخاب تاریخ</p>
@@ -8,8 +7,17 @@
       </div>
       <div v-if="error" class="text-red-500">خطا در دریافت اطلاعات</div>
       <!-- start -->
-      <div class="w-[800px] h-[1000px] border border-gray-100 bg-cover rounded-4xl p-5 flex flex-col justify-between"
+      <div
+        class="w-[800px] h-[1000px] border border-gray-100 bg-cover rounded-4xl p-5 flex flex-col justify-between shadow-xl relative lg:hidden"
         id="canva">
+        <div
+          class="z-10 w-full h-full bg-gray-200 absolute opacity-90 rounded-4xl left-0 top-0 flex items-center justify-center"
+          v-if="loading">
+          <div class="flex items-center gap-3">
+            <Icon name="svg-spinners:90-ring-with-bg" size="30" />
+            <span>درحال دریافت اطلاعات</span>
+          </div>
+        </div>
         <!-- start -->
         <div class="bg-[url(images/date.svg)] bg-no-repeat bg-cover rounded-4xl shadow">
           <div class="w-full grid grid-cols-3 justify-items-center rounded-4xl p-5">
@@ -35,22 +43,33 @@
         <!-- start -->
         <div class="bg-[url(images/azan.svg)] bg-no-repeat bg-cover rounded-4xl">
           <div class="flex flex-col gap-5 shadow items-start p-5 rounded-4xl">
-            <span class="text-center font-bold bg-blue-500 rounded-4xl p-2 text-white">اذان به افق شهر تهران</span>
+            <span class="text-center font-bold bg-blue-500 rounded-4xl p-2 text-white self-center">اذان به افق شهر
+              تهران</span>
+            <div class="w-full flex items-center justify-between">
+              <div class="bg-white p-2 flex gap-2 items-center rounded-4xl">
+                <span>طلوع آفتاب:</span>
+                <span>{{ toluAftab }}</span>
+              </div>
+              <div class="bg-white p-2 flex gap-2 items-center rounded-4xl">
+                <span>غروب آفتاب:</span>
+                <span>{{ ghorubAftab }}</span>
+              </div>
+            </div>
             <div class="w-full grid grid-cols-3 justify-items-center">
               <div class="px-10 py-2 flex flex-col items-center justify-around rounded-4xl bg-blue-200 shadow">
                 <Icon name="solar:sunrise-bold" size="50" />
                 <span class="text-2xl">اذان صبح</span>
-                <span class="text-xl">03:45</span>
+                <span class="text-xl">{{ azanSobh }}</span>
               </div>
               <div class="px-10 py-2 flex flex-col items-center justify-around rounded-4xl bg-blue-300 shadow">
                 <Icon name="solar:sun-bold" size="50" />
                 <span class="text-2xl">اذان ظهر</span>
-                <span class="text-xl">12:45</span>
+                <span class="text-xl">{{ azanZohr }}</span>
               </div>
               <div class="px-10 py-2 flex flex-col items-center justify-around rounded-4xl bg-blue-500 shadow">
                 <Icon name="solar:sunset-bold" size="50" />
                 <span class="text-2xl">اذان مغرب</span>
-                <span class="text-xl">19:45</span>
+                <span class="text-xl">{{ azanMaghreb }}</span>
               </div>
             </div>
           </div>
@@ -99,7 +118,8 @@
         <!-- Download image button -->
       </div>
       <!-- end -->
-      <span class="bg-blue-500 px-10 py-2 rounded-4xl text-white cursor-pointer text-center">دانلود</span>
+      <span class="bg-blue-500 px-10 py-2 rounded-4xl text-white cursor-pointer text-center" @click="downloadImage"
+        :disabled="loading">دانلود</span>
     </UContainer>
   </div>
 </template>
@@ -109,6 +129,17 @@ import DatePicker from '@alireza-ab/vue3-persian-datepicker';
 import { useDateFormat, useNow } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { useDateStore } from '@/stores/date'
+import html2canvas from 'html2canvas'
+import * as htmlToImage from 'html-to-image';
+import { tryOnBeforeMount } from '@vueuse/core'
+
+
+tryOnBeforeMount(() => {
+  converToImage('captureArea')
+})
+
+
+const loading = ref(false)
 
 const days = ["0", "شنبه", "یک شنبه", "دو شنبه", "سه شنبه", "چهار شنبه", "پنج شنبه", "جمعه",]
 const sunMonths = ["0", "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"]
@@ -121,10 +152,12 @@ const selectDate = ref(today)
 const query = ref(useConvertToSunDate(selectDate.value))
 
 
+
 const dateStore = useDateStore()
 await dateStore.getDate(query)
+await dateStore.getAzan(query)
 
-const { error, solarYear, solarMonth, solarDay, solarDayWeek, lunarYear, lunarMonth, lunarDay, year, month, day, events } = storeToRefs(dateStore)
+const { error, solarYear, solarMonth, solarDay, solarDayWeek, lunarYear, lunarMonth, lunarDay, year, month, day, events, azanSobh, azanZohr, azanMaghreb, nimehShab, toluAftab, ghorubAftab } = storeToRefs(dateStore)
 
 
 const matchDayWeek = (word) => {
@@ -137,11 +170,58 @@ const matchDayWeek = (word) => {
 
 watch(selectDate, async (val) => {
   if (val) {
+    loading.value = true
     query.value = useConvertToSunDate(val)
     await dateStore.getDate(query.value)
-
+    await dateStore.getAzan(query.value)
+    converToImage('captureArea')
+    loading.value = false
   }
 })
+
+const downloadImageUrl = ref('')
+
+async function convertHTMLtoImage(elementId: string) {
+  const element = document.getElementById(elementId);
+  if (!element) {
+    console.error("Element not found");
+    return;
+  }
+
+  try {
+    const dataUrl = await htmlToImage.toPng(element, {
+      width: 800,
+      height: 1000,
+      style: {
+        display: 'block'
+      }
+    });
+    return dataUrl;
+  } catch (error) {
+    console.error("Error converting HTML to image:", error);
+    return null;
+  }
+
+}
+
+const converToImage = (elementId: string) => {
+  loading.value = true
+  convertHTMLtoImage(elementId).then(dateURL => {
+    if (dateURL) {
+      downloadImageUrl.value = dateURL
+    }
+  })
+  loading.value = false
+}
+
+const downloadImage = () => {
+  const link = document.createElement('a')
+  link.href = downloadImageUrl.value
+  link.download = "taghvim"
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+}
 
 </script>
 

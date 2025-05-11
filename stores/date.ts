@@ -13,9 +13,12 @@ export const useDateStore = defineStore('dateStore', {
     month: null,
     day: null,
     events: null,
-    azanMorning: null,
+    azanSobh: null,
     azanZohr: null,
     azanMaghreb: null,
+    nimehShab: null,
+    toluAftab: null,
+    ghorubAftab: null,
     city: 'تهران',
     error: false
   }),
@@ -38,6 +41,25 @@ export const useDateStore = defineStore('dateStore', {
         this.month = gregorian?.month
         this.day = gregorian?.day
         this.events = events.toString()
+      } else {
+        this.error = true
+      }
+    },
+    async getAzan(query: any) {
+      const sendData = {
+        city: this.city.toString(),
+        month: query.value.month.toString(),
+        day: query.value.day.toString(),
+      }
+      const { data, status, error } = await useFetch<any>('/api/azan', { method: 'post', query: sendData })
+
+      if (data.value && status.value === "success") {
+        this.azanSobh = data?.value["result"]["azan_sobh"]
+        this.azanZohr = data?.value["result"]["azan_zohr"]
+        this.azanMaghreb = data?.value["result"]["azan_maghreb"]
+        this.nimehShab = data?.value["result"]["nimeshab	"]
+        this.toluAftab = data?.value["result"]["tolu_aftab"]
+        this.ghorubAftab = data?.value["result"]["ghorub_aftab"]
       } else {
         this.error = true
       }
