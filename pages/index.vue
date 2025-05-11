@@ -5,13 +5,13 @@
         <p>انتخاب تاریخ</p>
         <DatePicker :column="1" mode="single" v-model="selectDate" />
       </div>
-      <div v-if="error" class="text-red-500">خطا در دریافت اطلاعات</div>
+      <div v-if="error" class="text-[#ef4444]">خطا در دریافت اطلاعات</div>
       <!-- start -->
       <div
-        class="w-[800px] h-[1000px] border border-gray-100 bg-cover rounded-4xl p-5 flex-col justify-between shadow-xl relative hidden lg:flex"
+        class="w-[800px] h-[1000px] border border-[#f3f4f6] bg-cover rounded-4xl p-5 flex-col justify-between shadow-xl relative hidden lg:flex"
         id="canva">
         <div
-          class="z-10 w-full h-full bg-gray-200 absolute opacity-90 rounded-4xl left-0 top-0 flex items-center justify-center"
+          class="z-10 w-full h-full bg-[#e5e7eb] absolute opacity-90 rounded-4xl left-0 top-0 flex items-center justify-center"
           v-if="loading">
           <div class="flex items-center gap-3">
             <Icon name="svg-spinners:90-ring-with-bg" size="30" />
@@ -21,17 +21,17 @@
         <!-- start -->
         <div class="bg-[url(images/date.svg)] bg-no-repeat bg-cover rounded-4xl shadow">
           <div class="w-full grid grid-cols-3 justify-items-center rounded-4xl p-5">
-            <div class="px-10 py-2 flex flex-col items-center rounded-4xl bg-gray-950 text-white">
+            <div class="px-10 py-2 flex flex-col items-center rounded-4xl bg-[#030712] text-[#ffffff]">
               <span class="text-5xl">{{ day }}</span>
               <span class="text-xl">{{ gregorianMonths[month] }}</span>
               <span class="text-xl">{{ year }}</span>
             </div>
-            <div class="px-10 py-2 flex flex-col items-center rounded-4xl bg-white text-black shadow">
+            <div class="px-10 py-2 flex flex-col items-center rounded-4xl bg-[#ffffff] text-[#000000] shadow">
               <span class="text-5xl">{{ solarDay }}</span>
               <span class="text-xl">{{ matchDayWeek(solarDayWeek) }}</span>
               <span class="text-xl">{{ sunMonths[solarMonth] }} ماه {{ solarYear }}</span>
             </div>
-            <div class="px-10 py-2 flex flex-col items-center rounded-4xl bg-gray-950 text-white">
+            <div class="px-10 py-2 flex flex-col items-center rounded-4xl bg-[#030712] text-[#ffffff]">
               <span class="text-5xl">{{ lunarDay }}</span>
               <span class="text-xl">{{ moonMonths[lunarMonth] }}</span>
               <span class="text-xl">{{ lunarYear }}</span>
@@ -43,30 +43,30 @@
         <!-- start -->
         <div class="bg-[url(images/azan.svg)] bg-no-repeat bg-cover rounded-4xl">
           <div class="flex flex-col gap-5 shadow items-start p-5 rounded-4xl">
-            <span class="text-center font-bold bg-blue-500 rounded-4xl p-2 text-white self-center">اذان به افق شهر
+            <span class="text-center font-bold bg-[#3b82f6] rounded-4xl p-2 text-[#ffffff] self-center">اذان به افق شهر
               تهران</span>
             <div class="w-full flex items-center justify-between">
-              <div class="bg-white p-2 flex gap-2 items-center rounded-4xl">
+              <div class="bg-[#ffffff] p-2 flex gap-2 items-center rounded-4xl">
                 <span>طلوع آفتاب:</span>
                 <span>{{ toluAftab }}</span>
               </div>
-              <div class="bg-white p-2 flex gap-2 items-center rounded-4xl">
+              <div class="bg-[#ffffff] p-2 flex gap-2 items-center rounded-4xl">
                 <span>غروب آفتاب:</span>
                 <span>{{ ghorubAftab }}</span>
               </div>
             </div>
             <div class="w-full grid grid-cols-3 justify-items-center">
-              <div class="px-10 py-2 flex flex-col items-center justify-around rounded-4xl bg-blue-200 shadow">
+              <div class="px-10 py-2 flex flex-col items-center justify-around rounded-4xl bg-[#bfdbfe] shadow">
                 <Icon name="solar:sunrise-bold" size="50" />
                 <span class="text-2xl">اذان صبح</span>
                 <span class="text-xl">{{ azanSobh }}</span>
               </div>
-              <div class="px-10 py-2 flex flex-col items-center justify-around rounded-4xl bg-blue-300 shadow">
+              <div class="px-10 py-2 flex flex-col items-center justify-around rounded-4xl bg-[#93c5fd] shadow">
                 <Icon name="solar:sun-bold" size="50" />
                 <span class="text-2xl">اذان ظهر</span>
                 <span class="text-xl">{{ azanZohr }}</span>
               </div>
-              <div class="px-10 py-2 flex flex-col items-center justify-around rounded-4xl bg-blue-500 shadow">
+              <div class="px-10 py-2 flex flex-col items-center justify-around rounded-4xl bg-[#3b82f6] shadow">
                 <Icon name="solar:sunset-bold" size="50" />
                 <span class="text-2xl">اذان مغرب</span>
                 <span class="text-xl">{{ azanMaghreb }}</span>
@@ -77,11 +77,11 @@
         <!-- end -->
         <!-- start -->
         <div class="w-full flex justify-center p-5 bg-[url(images/events.svg)] rounded-4xl shadow relative">
-          <span class="bg-blue-500 text-xl p-2 rounded-t-none w-96 text-center rounded-4xl text-white absolute top-0">
+          <span class="bg-[#3b82f6] text-xl p-2 rounded-t-none w-96 text-center rounded-4xl text-[#ffffff] absolute top-0">
             رویداد ها
           </span>
-          <span class="mt-10 font-bold text-white text-2xl text-wrap line-clamp-3" v-if="events">{{ events }}</span>
-          <span class="mt-10 text-xl text-white" v-else>برای این روز رویدادی ثبت
+          <span class="mt-10 font-bold text-[#ffffff] text-2xl text-wrap line-clamp-3" v-if="events">{{ events }}</span>
+          <span class="mt-10 text-xl text-[#ffffff]" v-else>برای این روز رویدادی ثبت
             نشده است.</span>
         </div>
         <!-- end -->
@@ -92,24 +92,24 @@
           </div>
           <div class="flex flex-col justify-around items-baseline gap-3" dir="ltr">
             <div class="flex gap-2 justify-center items-center">
-              <Icon name="simple-icons:telegram" size="50" class="text-blue-500" />
-              <span class="text-white">@etehadie_keshbaf</span>
+              <Icon name="simple-icons:telegram" size="50" class="text-[#3b82f6]" />
+              <span class="text-[#ffffff]">@etehadie_keshbaf</span>
             </div>
             <div class="flex gap-2 justify-center items-center">
-              <Icon name="simple-icons:instagram" size="50" class="text-red-500" />
-              <span class="text-white">@etehadie_keshbaf</span>
+              <Icon name="simple-icons:instagram" size="50" class="text-[#ef4444]" />
+              <span class="text-[#ffffff]">@etehadie_keshbaf</span>
             </div>
             <div class="flex gap-2 justify-center items-center">
-              <Icon name="simple-icons:gmail" size="50" class="text-red-600" />
-              <span class="text-white">keshbaf@gmail.com</span>
+              <Icon name="simple-icons:gmail" size="50" class="text-[#dc2626]" />
+              <span class="text-[#ffffff]">keshbaf@gmail.com</span>
             </div>
             <div class="flex gap-2 justify-center items-center">
-              <Icon name="solar:phone-calling-bold" size="50" class="text-gray-100" />
-              <span class="text-white">(021) - 77651157</span>
+              <Icon name="solar:phone-calling-bold" size="50" class="text[#f3f4f6]" />
+              <span class="text-[#ffffff]">(021) - 77651157</span>
             </div>
             <div class="flex gap-2 justify-center items-center">
-              <Icon name="solar:phone-calling-bold" size="50" class="text-gray-100" />
-              <span class="text-white">(021) - 77651258</span>
+              <Icon name="solar:phone-calling-bold" size="50" class="text[#f3f4f6]" />
+              <span class="text-[#ffffff]">(021) - 77651258</span>
             </div>
           </div>
         </div>
@@ -118,7 +118,7 @@
         <!-- Download image button -->
       </div>
       <!-- end -->
-      <span class="bg-blue-500 px-10 py-2 rounded-4xl text-white cursor-pointer text-center" @click="downloadImage"
+      <span class="bg-[#3b82f6] px-10 py-2 rounded-4xl text-[#ffffff] cursor-pointer text-center" @click="downloadImage"
         :disabled="loading">دانلود</span>
     </UContainer>
   </div>
