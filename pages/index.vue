@@ -8,7 +8,7 @@
       <div v-if="error" class="text-red-500">خطا در دریافت اطلاعات</div>
       <!-- start -->
       <div
-        class="w-[800px] h-[1000px] border border-gray-100 bg-cover rounded-4xl p-5 flex flex-col justify-between shadow-xl relative lg:hidden"
+        class="w-[800px] h-[1000px] border border-gray-100 bg-cover rounded-4xl p-5 flex-col justify-between shadow-xl relative hidden lg:flex"
         id="canva">
         <div
           class="z-10 w-full h-full bg-gray-200 absolute opacity-90 rounded-4xl left-0 top-0 flex items-center justify-center"
