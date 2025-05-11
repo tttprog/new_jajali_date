@@ -135,7 +135,7 @@ import { tryOnBeforeMount } from '@vueuse/core'
 
 
 tryOnBeforeMount(() => {
-  converToImage('captureArea')
+  converToImage('canva')
 })
 
 
@@ -174,7 +174,7 @@ watch(selectDate, async (val) => {
     query.value = useConvertToSunDate(val)
     await dateStore.getDate(query.value)
     await dateStore.getAzan(query.value)
-    converToImage('captureArea')
+    converToImage('canva')
     loading.value = false
   }
 })
@@ -192,9 +192,6 @@ async function convertHTMLtoImage(elementId: string) {
     const dataUrl = await htmlToImage.toPng(element, {
       width: 800,
       height: 1000,
-      style: {
-        display: 'block'
-      }
     });
     return dataUrl;
   } catch (error) {
