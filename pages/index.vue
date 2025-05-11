@@ -109,11 +109,11 @@
               <span class="text-[#ffffff]">keshbaf@gmail.com</span>
             </div>
             <div class="flex gap-2 justify-center items-center">
-              <Icon name="solar:phone-calling-bold" size="50" class="text-cd[#ffffff]" />
+              <Icon name="solar:phone-calling-bold" size="50" class="text-[#ffffff]" />
               <span class="text-[#ffffff]">(021) - 77651157</span>
             </div>
             <div class="flex gap-2 justify-center items-center">
-              <Icon name="solar:phone-calling-bold" size="50" class="text-cd[#ffffff]" />
+              <Icon name="solar:phone-calling-bold" size="50" class="text-[#ffffff]" />
               <span class="text-[#ffffff]">(021) - 77651258</span>
             </div>
           </div>
