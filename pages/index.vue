@@ -7,6 +7,10 @@
       </div>
       <div v-if="error" class="text-[#ef4444]">خطا در دریافت اطلاعات</div>
       <!-- start -->
+      <div class="flex items-center gap-3" v-if="loading">
+        <Icon name="png-spinners:90-ring-with-bg" size="30" />
+        <span>درحال دریافت اطلاعات</span>
+      </div>
       <div
         class="w-[800px] h-[1000px] border border-[#f3f4f6] bg-[#ffffff] p-5 flex-col gap-5 justify-between shadow-xl relative hidden lg:flex"
         id="canva">
@@ -119,8 +123,8 @@
         <!-- Download image button -->
       </div>
       <!-- end -->
-      <span class="bg-[#3b82f6] px-10 py-2 rounded-4xl text-[#ffffff] cursor-pointer text-center" @click="downloadImage"
-        :disabled="loading">دانلود</span>
+      <button class="bg-[#3b82f6] px-10 py-2 rounded-4xl text-[#ffffff] cursor-pointer text-center disabled:opacity-75"
+        :disabled="loading" @click="downloadImage">دانلود</button>
     </UContainer>
   </div>
 </template>
