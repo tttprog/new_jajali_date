@@ -5,7 +5,7 @@
         <p>انتخاب تاریخ</p>
         <DatePicker :column="1" mode="single" v-model="selectDate" />
       </div>
-      <div v-if="error" class="text-[#ef4444]">خطا در دریافت اطلاعات</div>
+      
       <!-- start -->
       <div class="flex items-center gap-3" v-if="loading">
         <Icon name="png-spinners:90-ring-with-bg" size="30" />
