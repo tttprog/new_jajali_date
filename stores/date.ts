@@ -42,10 +42,13 @@ export const useDateStore = defineStore('dateStore', {
         }
         else if(moon?.month === 2){
           this.lunarDay = moon?.day+1
-        }else if(moon?.month === 6){
-          this.lunarDay = moon?.day+1
-        }else{
+        }lse{
           this.lunarDay = moon?.day
+        }
+        if (solar?.day == 30){
+          this.lunarMonth = 6
+          this.lunarDay = 30 
+          
         }
         
         this.year = gregorian?.year
