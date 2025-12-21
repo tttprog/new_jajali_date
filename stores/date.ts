@@ -43,7 +43,7 @@ export const useDateStore = defineStore('dateStore', {
         else if(moon?.month === 2){
           this.lunarDay = moon?.day+1
         }else{
-          this.lunarDay = moon?.day - 1
+          this.lunarDay = moon?.day
         }
         
         this.year = gregorian?.year
