@@ -50,7 +50,7 @@ export const useDateStore = defineStore('dateStore', {
           this.lunarMonth = 6
           this.lunarDay = 30
         }
-        if (smoon?.month == 7){
+        if (moon?.month == 7){
           this.lunarDay = moon?.day - 1
         }
         
